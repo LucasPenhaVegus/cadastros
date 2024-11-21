@@ -22,7 +22,7 @@
                     <a href="#cadastro" title="Cadastrar">Novo usuário</a>
                 </li>
                 <li>
-                    <a href="#login" title="Entrar">Já tem uma conta?</a>
+                    <a href="./login.html" title="Entrar">Já tem uma conta?</a>
                 </li>
             </ul>
         </nav>
@@ -32,52 +32,41 @@
         <section id="cadastro" class="box">
             <div class="container-cadastro">
                 <h2 class="title">Criar Novo Usuário</h2>
-                <form>
-                    <label for="Nome">Nome</label>
-                    <input id="Nome" name="nome" type="text" />
+                <form id="formCadastro">
+                    <label for="nome">Nome</label>
+                    <input id="nome" name="nome" type="text" required>
                     <br />
                     <label for="sobrenome">Sobrenome</label>
-                    <input id="sobrenome" name="sobrenome" type="text" />
+                    <input id="sobrenome" name="sobrenome" type="text" required>
                     <br />
                     <label for="cpf">CPF</label>
-                    <input id="cpf" type="text" name="cpf" maxlength="14" placeholder="000.000.000-00" />
+                    <input id="cpf" type="text" name="cpf" maxlength="14" placeholder="000.000.000-00" required>
                     <br />
                     <label for="nascimento">Data de Nascimento</label>
-                    <input id="nascimento" type="text" name="nascimento" maxlength="10" placeholder="00/00/0000" />
+                    <input id="nascimento" type="date" name="nascimento" required>
                     <br />
                     <label for="usuario">Nome de Usuário</label>
                     <input id="usuario" type="text" name="usuario">
                     <br />
                     <label for="senha">Senha</label>
-                    <input id="senha" type="password" name="senha" minlength="8" placeholder="mínimo de 8 dígitos" />
+                    <div class="exibirSenha">
+                        <input class="boxSenha" id="senha" type="password" name="senha" minlength="8"
+                            placeholder="mínimo de 8 dígitos" required>
+                        <button type="button" id="verSenha">O</button>
+                    </div>
                     <br />
-                    <label for="confirma-senha">Confirmar senha</label>
-                    <input id="confirma-senha" type="password" name="senha" minlength="8"
-                        placeholder="mínimo de 8 dígitos" />
+                    <label for="confirmaSenha">Confirmar senha</label>
+                    <input id="confirmaSenha" type="password" name="confirmaSenha" minlength="8"
+                        placeholder="mínimo de 8 dígitos" required>
                     <br />
                     <button type="submit" class="submit">
                         Cadastrar
                     </button>
                 </form>
-            </div>
-        </section>
-
-        <section id="login" class="box">
-            <div class="container-login">
-                <h2 class="title">Login</h2>
-                <form>
-                    <label for="usuario">Nome de Usuário</label>
-                    <input id="usuario" type="text" name="usuario">
-                    <br />
-                    <label for="senha">Senha</label>
-                    <input id="senha" type="password" name="senha" minlength="8" placeholder="mínimo de 8 dígitos" />
-                    <br />
-                    <button type="submit" class="submit">
-                        Entrar
-                    </button>
-                </form>
+                <p id="errorMessage" style="color: red;"></p>
             </div>
         </section>
     </main>
 
+    <script src="cadastroUsuario.js"></script>
 </body>
