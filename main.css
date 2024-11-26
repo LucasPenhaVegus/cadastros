@@ -36,9 +36,12 @@ li a {
     text-decoration: none;
 }
 
-main {
+body {
     background-color: rgba(160, 160, 160, 0.164);
-    height: fit-content display: list-item;
+    height: 100%;
+}
+
+main {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
