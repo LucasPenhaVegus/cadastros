@@ -3,8 +3,8 @@
 const formCadastro = document.getElementById("formCadastro");
 if (formCadastro) {
 
-    formCadastro.addEventListener("submit", function(e) {
-        e.preventDefault();
+    formCadastro.addEventListener("submit", function(event) {
+        event.preventDefault();
 
         const nome = document.getElementById("nome").value.trim();
         const sobrenome = document.getElementById("sobrenome").value.trim();
@@ -25,10 +25,19 @@ if (formCadastro) {
         } else if (!temMaiuscula.test(senha) || !temMinuscula.test(senha) || !temNumero.test(senha)) {
             document.getElementById("errorMessage").textContent = "A senha deve conter uma letra maiuscula, uma letra minuscula e um número!";
         } else if (temEspaco.test(usuario)){
-            document.getElementById("errorMessage").textContent = "O ID de usuário não pode conter espaços!"
+            document.getElementById("errorMessage").textContent = "O Nome de Usuário não pode conter espaços!"
         } else {
             document.getElementById("errorMessage").textContent = "";
-            alert("Usuário cadastrado com sucesso!");
+            alert("Usuário cadastrado com sucesso!")
+            
+            const fichaCadastro = document.getElementById("formCadastro")
+
+                const formData = new FormData(formCadastro);
+                const data = Object.fromEntries(formData)
+
+                const jsonData = JSON.stringify(data);
+                console.log(jsonData);
+                console.log(typeof jsonData)
         }
 
     });
@@ -58,6 +67,18 @@ if (formCadastro) {
         input.value = value;
     
     })
+
+    // const fichaCadastro = document.getElementById("formCadastro")
+
+    // fichaCadastro.addEventListener("submit", function(event) {
+    //     event.preventDefault();
+
+    //     const formData = new FormData(fichaCadastro);
+    //     const data = Object.fromEntries(formData)
+
+    //     JSON.stringify(data)
+    //     console.log(data);
+    // })
 
 }
 
