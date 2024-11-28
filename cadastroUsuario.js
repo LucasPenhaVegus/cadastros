@@ -68,18 +68,6 @@ if (formCadastro) {
     
     })
 
-    // const fichaCadastro = document.getElementById("formCadastro")
-
-    // fichaCadastro.addEventListener("submit", function(event) {
-    //     event.preventDefault();
-
-    //     const formData = new FormData(fichaCadastro);
-    //     const data = Object.fromEntries(formData)
-
-    //     JSON.stringify(data)
-    //     console.log(data);
-    // })
-
 }
 
 const verSenhaLogin = document.getElementById("verSenhaLogin");
