@@ -1,5 +1,5 @@
 <cfoutput>
-<cfdump var="#form#">
+
     <section id="cadastro" class="box">
         <div class="container-cadastro">
             <h2 class="title">Criar Novo Usuário</h2>

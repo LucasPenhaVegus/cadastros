@@ -18,6 +18,3 @@
         <cfinclude template="footer.cfm">
     </cffunction>
 </cfcomponent>
-
-
-
