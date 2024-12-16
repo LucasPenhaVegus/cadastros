@@ -33,7 +33,7 @@
 
         <cfargument name="nome" type="string" required="false">
         <cfargument name="sobrenome" type="string" required="false">
-        <cfargument name="cpf" type="string" required="false">
+        <cfargument name="cpfLimpo" type="string" required="false">
         <cfargument name="nascimento" type="date" required="false">
         <cfargument name="usuario" type="string" required="false">
         <cfargument name="senha" type="string" required="false"> 
@@ -44,13 +44,13 @@
             usuarioDAO.cadastrarUsuario(
                 arguments.nome,
                 arguments.sobrenome,
-                arguments.cpf,
+                arguments.cpfLimpo,
                 arguments.nascimento,
                 arguments.usuario,
                 arguments.senha
             );
+
         </cfscript>
-        <cfdump var="#arguments.nascimento#">
         <cfreturn>
     
     </cffunction>
@@ -60,7 +60,6 @@
         <cfargument name="cpf" type="string" required="true">
 
         <cfset var cpfLimpo = reReplace(arguments.cpf, "[^\d]", "", "ALL")> 
-        <cfdump var="#cpfLimpo#">
         <cfreturn cpfLimpo>
     </cffunction>
 </cfcomponent>

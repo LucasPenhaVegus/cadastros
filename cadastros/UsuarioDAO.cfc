@@ -8,7 +8,7 @@
     </cffunction>
 
     <cffunction name="cadastrarUsuario" access="public" returntype="any" output="true" hint="Cadastra o novo usuário no BD">
-
+        
         <cfargument name="nome" type="string" required="false" default="" >
         <cfargument name="sobrenome" type="string" required="false" default="">
         <cfargument name="cpf" type="string" required="false" default="">
@@ -22,7 +22,13 @@
         <cfdump var="#arguments.sobrenome#">
         <cfdump var="#arguments.cpf#">
         
-
+        <cfoutput>
+            <cfscript>
+                var usuarioDAO = new UsuarioDAO();
+                usuarioDAO.getUsuarios();
+            </cfscript>
+            <cfdump var="#usuarioDAO.getUsuarios()#">
+        </cfoutput>
         <cfset var fichaDeCadastro = ""/>
         <cfquery name="fichaDeCadastro">
 
@@ -35,7 +41,7 @@
                 <cfqueryparam value="#arguments.senha#" cfsqltype="cf_sql_varchar">
             );
         </cfquery>
-        <cfdump var="#fichaDeCadastro#"/>
-        <cfreturn fichaDeCadastro/>
+        <cfreturn true/>
+
     </cffunction>
 </cfcomponent>
