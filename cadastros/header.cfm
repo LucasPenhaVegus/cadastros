@@ -12,7 +12,7 @@
 <body>
     <header class="container">
         <div>
-            <a href="https://vegus.com.br/" class="logo">
+            <a href="https://vegus.com.br/" class="logo" target="_blank" rel="noopener noreferrer">
                 <img class="img-responsive lazyloaded" src="/frontend/assets/vegus-logo-vermelho.png" title="Vegus"
                     alt="Logo da Vegus">
             </a>

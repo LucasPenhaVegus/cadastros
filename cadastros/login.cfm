@@ -2,7 +2,7 @@
     <section id="login" class="box">
         <div class="container-login">
             <h2 class="title">Login</h2>
-            <form id="formLogin" autocomplete="off">
+            <form id="formLogin" autocomplete="off" enctype="multipart/form-data" method="POST" action="validaLogin.cfm">
                 <label for="usuarioLogin">Nome de Usu&aacute;rio</label>
                 <input id="usuarioLogin" type="text" name="usuarioLogin" required>
                 <br />

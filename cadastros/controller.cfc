@@ -2,13 +2,13 @@
 
     <cffunction name="validarDados" access="public" returntype="boolean">
         
-        <cfargument name="nome" type="string" required="false">
-        <cfargument name="sobrenome" type="string" required="false">
-        <cfargument name="cpf" type="string" required="false">
-        <cfargument name="nascimento" type="date" required="false">
-        <cfargument name="usuario" type="string" required="false">
-        <cfargument name="senha" type="string" required="false"> 
-        <cfargument name="confirmaSenha" type="string" required="false">
+        <cfargument name="nome" type="string" required="true">
+        <cfargument name="sobrenome" type="string" required="true">
+        <cfargument name="cpf" type="string" required="true">
+        <cfargument name="nascimento" type="date" required="true">
+        <cfargument name="usuario" type="string" required="true">
+        <cfargument name="senha" type="string" required="true"> 
+        <cfargument name="confirmaSenha" type="string" required="true">
         
         <cfif len(arguments.senha) LT 8 OR not reFind("[A-Z]", arguments.senha) OR not reFind("[a-z]", arguments.senha) OR not reFind("[\d]", arguments.senha)>
             <cfoutput>A senha deve conter no mínimo 8 dígitos, uma letra maiuscula, uma letra minuscula e um número!</cfoutput>
@@ -31,13 +31,13 @@
 
     <cffunction name="registrarNovoUsuario" access="public" returntype="any" hint="Recebe o form e envia para o banco">
 
-        <cfargument name="nome" type="string" required="false">
-        <cfargument name="sobrenome" type="string" required="false">
-        <cfargument name="cpfLimpo" type="string" required="false">
-        <cfargument name="nascimento" type="date" required="false">
-        <cfargument name="usuario" type="string" required="false">
-        <cfargument name="senha" type="string" required="false"> 
-        <cfargument name="confirmaSenha" type="string" required="false">
+        <cfargument name="nome" type="string" required="false" default="">
+        <cfargument name="sobrenome" type="string" required="false" default="">
+        <cfargument name="cpfLimpo" type="string" required="false" default="">
+        <cfargument name="nascimento" type="date" required="false" default="">
+        <cfargument name="usuario" type="string" required="false" default="">
+        <cfargument name="senha" type="string" required="false" default=""> 
+        <cfargument name="confirmaSenha" type="string" required="false" default="">
 
         <cfscript>
             var usuarioDAO = new UsuarioDAO();
@@ -61,5 +61,23 @@
 
         <cfset var cpfLimpo = reReplace(arguments.cpf, "[^\d]", "", "ALL")> 
         <cfreturn cpfLimpo>
+    </cffunction>
+
+    <cffunction name="validarLogin" access="public" returntype="any" hint="Valida se o nome de usuário e senha estão corretos">
+
+        <cfargument name="usuarioLogin" type="string" required="true"> 
+        <cfargument name="senhaLogin" type="string" required="true">
+
+        <cfscript>
+            var usuarioDAO = createObject("component","UsuarioDAO");
+            var senhaHash = hash(arguments.senhaLogin, "SHA-256");
+            var loginValido = usuarioDAO.checarUsuarioSenha(usuarioLogin=arguments.usuarioLogin, senhaLogin=senhaHash);
+
+            if (loginValido) {
+                return {"sucesso" : true, "mensagem" : "Bem-Vindo à Vegus!"};
+            } else {
+                return {"sucesso" : false, "mensagem" : "Usuário ou senha inválidos."};
+            }
+        </cfscript>
     </cffunction>
 </cfcomponent>
