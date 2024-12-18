@@ -23,7 +23,6 @@
             <cfreturn false>
             
         <cfelse>
-            <cfoutput>Usuário cadastrado com sucesso!</cfoutput>
             <cfreturn true>
         </cfif>
 
@@ -70,11 +69,24 @@
 
         <cfscript>
             var usuarioDAO = createObject("component","UsuarioDAO");
+            var senha = arguments.senhaLogin;
             var senhaHash = hash(arguments.senhaLogin, "SHA-256");
             var loginValido = usuarioDAO.checarUsuarioSenha(usuarioLogin=arguments.usuarioLogin, senhaLogin=senhaHash);
 
+            if (usuarioLogin EQ "Admin" AND senha EQ "VegusAdmin1") {
+                return {
+                    "sucesso" : true,
+                    "mensagem" : "Login como Administrador realizado com sucesso!",
+                    "tipoUsuario" : "admin"
+                }
+            }
+
             if (loginValido) {
-                return {"sucesso" : true, "mensagem" : "Bem-Vindo à Vegus!"};
+                return {
+                    "sucesso" : true, 
+                    "mensagem" : "Bem-Vindo à Vegus!",
+                    "tipoUsuario" : "regular"
+                };
             } else {
                 return {"sucesso" : false, "mensagem" : "Usuário ou senha inválidos."};
             }

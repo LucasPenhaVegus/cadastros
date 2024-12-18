@@ -12,9 +12,11 @@
 </cfinvoke>
 
 <cfif resultadoLogin.sucesso EQ true>
-    <cfoutput>Seja Bem-Vindo à Vegus</cfoutput>
+    <cfif resultadoLogin.tipoUsuario EQ "admin"> 
+        <cfoutput>Bem-Vindo, Administrador!</cfoutput>
+    <cfelse>
+        <cfoutput>Seja Bem-Vindo &agrave; Vegus</cfoutput>
+    </cfif>
 <cfelse>
-    <cfoutput>
-        #resultadoLogin.mensagem#
-    </cfoutput>
+    <cfoutput>#resultadoLogin.mensagem#</cfoutput>
 </cfif>

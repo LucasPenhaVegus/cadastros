@@ -28,15 +28,17 @@
             <cfset var fichaDeCadastro = ""/>
             <cfquery name="fichaDeCadastro">
 
-                INSERT INTO Usuarios (nome, cpf, dataNascimento, nomeUsuario, senha)
+                INSERT INTO Usuarios (nome, sobrenome, cpf, dataNascimento, nomeUsuario, senha)
                 VALUES (
                     <cfqueryparam value="#arguments.nome#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#arguments.sobrenome#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value="#arguments.cpf#" cfsqltype="cf_sql_varchar" maxlength="11">,
                     <cfqueryparam value="#arguments.nascimento#" cfsqltype="cf_sql_date">,
                     <cfqueryparam value="#arguments.usuario#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value="#senhaHash#" cfsqltype="cf_sql_varchar">
                 );
             </cfquery>
+            <cfoutput>Usuário cadastrado com sucesso!</cfoutput>
             <cfreturn true/>
         <cfelse>
             <cfoutput>Usuário já cadastrado!</cfoutput>
@@ -48,7 +50,6 @@
 
         <cfargument name="usuarioLogin" type="string" required="true"> 
         <cfargument name="senhaLogin" type="string" required="true">
-        <cfargument name="sobrenome" type="string" required="false" default="">
 
         <cfset var infoLogin = "">
         <cfquery name="infoLogin">
