@@ -1,7 +1,3 @@
-<cfoutput>
-    <cfdump var="#FORM#">
-</cfoutput>
-
 <cfinvoke
     component="controller"
     method="validarLogin"
@@ -12,10 +8,13 @@
 </cfinvoke>
 
 <cfif resultadoLogin.sucesso EQ true>
+    <cfset session.usuarioLogin = form.usuarioLogin>
     <cfif resultadoLogin.tipoUsuario EQ "admin"> 
-        <cfoutput>Bem-Vindo, Administrador!</cfoutput>
+        <cfset session.tipoUsuario = "admin">
+        <cflocation url="listagem.cfm">
     <cfelse>
-        <cfoutput>Seja Bem-Vindo &agrave; Vegus</cfoutput>
+        <cfset session.tipoUsuario = "regular">
+        <cflocation url="listagem.cfm">
     </cfif>
 <cfelse>
     <cfoutput>#resultadoLogin.mensagem#</cfoutput>

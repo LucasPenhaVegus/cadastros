@@ -107,3 +107,40 @@ footer a {
     text-decoration: none;
     color: black;
 }
+
+table {
+    width: 100%;
+    display: table;
+    margin: 20px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: center;
+    color: black;
+    border: none;
+    width: max-content;
+}
+
+table.colunas {
+    width: 50px;
+    
+}
+
+.cabecalho{
+    background-color: #3b3b3b;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+th a {
+    text-decoration: none;
+    color: white;
+}
+
+th{
+    padding: 10px;
+    border: none;
+}
+
+td {
+    padding: 10px;
+}

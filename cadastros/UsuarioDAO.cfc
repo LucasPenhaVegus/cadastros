@@ -16,26 +16,28 @@
         <cfargument name="usuario" type="string" required="false" default="">
         <cfargument name="senha" type="string" required="false" default="">
 
-        <cfset var verificarCPF = ""/>
-        <cfquery name="verificarCPF">
+        <cfset var verificarCPFUsuario = ""/>
+        <cfquery name="verificarCPFUsuario">
             SELECT COUNT(*) AS total
             FROM Usuarios
             WHERE cpf = <cfqueryparam value="#arguments.cpf#" cfsqltype="cf_sql_varchar">
+            OR nomeUsuario = <cfqueryparam value="#arguments.usuario#" cfsqltype="cf_sql_varchar">
         </cfquery>
-
-        <cfif verificarCPF.total EQ 0>
+    
+        <cfif verificarCPFUsuario.total EQ 0>
             <cfset var senhaHash = hash(arguments.senha,"SHA-256")>
             <cfset var fichaDeCadastro = ""/>
             <cfquery name="fichaDeCadastro">
 
-                INSERT INTO Usuarios (nome, sobrenome, cpf, dataNascimento, nomeUsuario, senha)
+                INSERT INTO Usuarios (nome, sobrenome, cpf, dataNascimento, nomeUsuario, senha, dataRegistro)
                 VALUES (
                     <cfqueryparam value="#arguments.nome#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value="#arguments.sobrenome#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value="#arguments.cpf#" cfsqltype="cf_sql_varchar" maxlength="11">,
                     <cfqueryparam value="#arguments.nascimento#" cfsqltype="cf_sql_date">,
                     <cfqueryparam value="#arguments.usuario#" cfsqltype="cf_sql_varchar">,
-                    <cfqueryparam value="#senhaHash#" cfsqltype="cf_sql_varchar">
+                    <cfqueryparam value="#senhaHash#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#dateFormat(now(), "yyyy-mm-dd")#" cfsqltype="cf_sql_date">
                 );
             </cfquery>
             <cfoutput>Usuário cadastrado com sucesso!</cfoutput>
