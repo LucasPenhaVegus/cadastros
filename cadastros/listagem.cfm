@@ -29,12 +29,13 @@
                     <table class="table" border="1">
                         <thead>
                             <tr class="cabecalho">
-                                <th><a href="?orderBy=nomeUsuario&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>">Nome de Usu&aacute;rio</a></th>
-                                <th><a href="?orderBy=nome&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>">Nome</a></th>
-                                <th><a href="?orderBy=sobrenome&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>">Sobrenome</a></th>
-                                <th><a href="?orderBy=cpf&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>">CPF</a></th>
-                                <th><a href="?orderBy=dataNascimento&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>">Data de Nascimento</a></th>
-                                <th><a href="?orderBy=dataRegistro&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>">Registrado em</a></th>
+                                <th><a href="?orderBy=UsuarioID&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">ID</a></th>
+                                <th><a href="?orderBy=nomeUsuario&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Nome de Usu&aacute;rio</a></th>
+                                <th><a href="?orderBy=nome&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Nome</a></th>
+                                <th><a href="?orderBy=sobrenome&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Sobrenome</a></th>
+                                <th><a href="?orderBy=cpf&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">CPF</a></th>
+                                <th><a href="?orderBy=dataNascimento&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Data de Nascimento</a></th>
+                                <th><a href="?orderBy=dataRegistro&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Registrado em</a></th>
                             </tr>
                         </thead>
 
@@ -42,7 +43,8 @@
                             <cfquery name="usuarios" dataSource="cadastro-vegus">
                                 SELECT * FROM Usuarios
                                 <cfif len(trim(url.buscar))>
-                                    WHERE nome LIKE '%' + <cfqueryparam value="#url.buscar#" cfsqltype="cf_sql_varchar"> + '%'
+                                    WHERE UsuarioID LIKE '%' + <cfqueryparam value="#url.buscar#" cfsqltype="cf_sql_varchar"> + '%'
+                                    OR nome LIKE '%' + <cfqueryparam value="#url.buscar#" cfsqltype="cf_sql_varchar"> + '%'
                                     OR Sobrenome LIKE '%' + <cfqueryparam value="#url.buscar#" cfsqltype="cf_sql_varchar"> + '%'
                                     OR cpf LIKE '%' + <cfqueryparam value="#url.buscar#" cfsqltype="cf_sql_varchar"> + '%'
                                     OR nomeUsuario LIKE '%' + <cfqueryparam value="#url.buscar#" cfsqltype="cf_sql_varchar"> + '%'
@@ -64,6 +66,7 @@
 
                             <cfloop query="usuarios">
                                 <tr>
+                                    <td>#UsuarioID#</td>
                                     <td>#nomeUsuario#</td>
                                     <td>#nome#</td>
                                     <td>#sobrenome#</td>
