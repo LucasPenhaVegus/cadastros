@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Vegus</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/frontend/assets/favicon-32x32.png">
-    <link rel="stylesheet" href="/frontend/style/main.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./frontend/assets/favicon-32x32.png">
+    <link rel="stylesheet" href="./frontend/style/main.css" />
 </head>
 
 <body>
     <header class="container">
         <div>
             <a href="https://vegus.com.br/" class="logo" target="_blank" rel="noopener noreferrer">
-                <img class="img-responsive lazyloaded" src="/frontend/assets/vegus-logo-vermelho.png" title="Vegus"
+                <img class="img-responsive lazyloaded" src="./frontend/assets/vegus-logo-vermelho.png" title="Vegus"
                     alt="Logo da Vegus">
             </a>
         </div>

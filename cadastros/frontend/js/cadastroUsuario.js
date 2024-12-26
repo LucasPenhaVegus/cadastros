@@ -21,13 +21,13 @@ if (formCadastro) {
     
 
         if (senha !== confirmaSenha) {
-            document.getElementById("errorMessage").textContent = "As senhas devem ser iguais!";
+            document.getElementById("errorMessage").innerHTML = "As senhas devem ser iguais!";
         } else if (!temMaiuscula.test(senha) || !temMinuscula.test(senha) || !temNumero.test(senha)) {
-            document.getElementById("errorMessage").textContent = "A senha deve conter no mínimo 8 dígitos, uma letra maiuscula, uma letra minuscula e um número!";
+            document.getElementById("errorMessage").innerHTML = "A senha deve conter:<br>• No mínimo 8 dígitos<br>• Uma letra maíuscula<br>• Uma letra minúscula<br>• Um número";
         } else if (temEspaco.test(usuario)){
-            document.getElementById("errorMessage").textContent = "O Nome de Usuário não pode conter espaços!"
+            document.getElementById("errorMessage").innerHTML = "O Nome de Usuário não pode conter espaços!"
         } else {
-            document.getElementById("errorMessage").textContent = "";
+            document.getElementById("errorMessage").innerHTML = "";
             alert("Usuário cadastrado com sucesso!");
             formCadastro.submit();
         }

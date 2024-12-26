@@ -1,3 +1,7 @@
+<cfif NOT structKeyExists(session, "TIPOUSUARIO") OR session.TIPOUSUARIO EQ "">
+    <cflocation url="./login.cfm" addtoken="false">
+</cfif>
+
 <cfoutput>
     <body>
         <main class="container-cadastro">
