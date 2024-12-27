@@ -39,5 +39,4 @@ returnvariable="validacao"
 
 <cfelse>
     <cfoutput>Erro</cfoutput>
-    <cfreturn false>
 </cfif>

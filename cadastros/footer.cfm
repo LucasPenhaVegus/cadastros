@@ -4,7 +4,5 @@
         </footer>
         </main>
 
-        <script src="./frontend/js/cadastroUsuario.js"></script>
-
     </body>
 </html>

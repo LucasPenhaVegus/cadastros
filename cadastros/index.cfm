@@ -38,4 +38,5 @@
         </div>
     </section>
 
+    <script src="./frontend/js/cadastroUsuario.js"></script>
 </cfoutput>

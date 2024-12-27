@@ -1,8 +1,9 @@
-<cfif NOT structKeyExists(session, "TIPOUSUARIO") OR session.TIPOUSUARIO EQ "">
+<cfif NOT structKeyExists(session, "tipoUsuario") OR session.tipoUsuario EQ "">
     <cflocation url="./login.cfm" addtoken="false">
 </cfif>
 
 <cfoutput>
+    <cfdump var="#session#"/>
     <body>
         <main class="container-cadastro">
             <cfif session.tipoUsuario EQ "admin">
@@ -40,6 +41,7 @@
                                 <th><a href="?orderBy=cpf&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">CPF</a></th>
                                 <th><a href="?orderBy=dataNascimento&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Data de Nascimento</a></th>
                                 <th><a href="?orderBy=dataRegistro&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Registrado em</a></th>
+                                <th>Editar Usu&aacute;rio</th>
                             </tr>
                         </thead>
 
@@ -77,9 +79,10 @@
                                     <td>#cpf#</td>
                                     <td>#dateFormat(dataNascimento, "dd/MM/yyyy")#</td>
                                     <td>#dateFormat(dataRegistro, "dd/MM/yyyy")#</td>
+                                    <td>
                                         <cfif structKeyExists(session, "tipoUsuario") AND session.tipoUsuario EQ "admin">
-                                            <!---<a href="editar.cfm?id=#id#">Editar</a>
-                                            <a href="excluir.cfm?id=#id#">Excluir</a>--->
+                                            <a href="editaUsuario.cfm?id=#UsuarioID#">Editar</a>
+                                            <!--- <a href="excluir.cfm?id=#UsuarioID#">Excluir</a> --->
                                         </cfif>
                                     </td>
                                 </tr>
