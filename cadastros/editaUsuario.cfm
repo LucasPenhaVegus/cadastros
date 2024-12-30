@@ -1,34 +1,51 @@
-<cfdump var="#url#">
-<cfdump var="#form#">
 <cfoutput>
-    <cfif session.tipoUsuario EQ "admin">
-        <cfquery name="idUsuario" dataSource="cadastro-vegus">
-            SELECT * FROM Usuarios WHERE UsuarioID = <cfqueryparam value="#url.id#" cfsqltype="cf_sql_integer">
-        </cfquery>
+    <section id="cadastro" class="box">
+        <div class="container-cadastro">
+            <cfif session.tipoUsuario EQ "admin">
+                <cfquery name="idUsuario" dataSource="cadastro-vegus">
+                    SELECT * FROM Usuarios WHERE UsuarioID = <cfqueryparam value="#url.id#" cfsqltype="cf_sql_integer">
+                </cfquery>
+                
+                <form id="formCadastro" autocomplete="off" enctype="multipart/form-data" method="POST" action="editaUsuario.cfm?id=#id#">
+                    <input type="hidden" name="id" value="#idUsuario.UsuarioID#">
+                    <label for="nome">Nome</label>
+                    <input id="nome" name="nome" value="#idUsuario.nome#" required>
+                    <br />
+                    <label for="sobrenome">Sobrenome</label>
+                    <input id="sobrenome" name="sobrenome" value="#idUsuario.Sobrenome#" required>
+                    <br />
+                    <label for="cpf">CPF</label>
+                    <input id="cpf" value="#idUsuario.cpf#" name="cpf" onkeyup="validaCpf(this)" type="text" maxlength="11" required>
+                    <br />
+                    <label for="nascimento">Data de Nascimento</label>
+                    <input id="nascimento" value="#idUsuario.dataNascimento#" name="nascimento" type="date" min="1900-01-01" max="2099-12-31" required>
+                    <br />
+                    <button type="submit" class="submit">
+                        Alterar
+                    </button>
+                </form>
+
+            <cfelse>
+                <p>Voc&ecirc; n&atilde;o tem permiss&atilde;o para editar este usu&aacute;rio.</p>
+            </cfif>
+        </div>
+    </section>
+    <script>
+        function validaCpf(params) {
+            let cpf = params.value;
+            cpf = cpf.replace(/\D/g, "");
+            params.value = cpf;
+        }
+        <!--- document.getElementById("cpf").addEventListener("input", function (numerocpf) {
+            
+            let input = numerocpf.target;
+            let value = input.value;
+
+            value = value.replace(/\D/g, "");
+            input.value = value;
         
-        <form id="formCadastro" autocomplete="off" enctype="multipart/form-data" method="POST" action="editaUsuario.cfm?id=#id#">
-            <input type="hidden" name="id" value="#idUsuario.UsuarioID#">
-            <label for="nome">Nome</label>
-            <input id="nome" name="nome" value="#idUsuario.nome#" required>
-            <br />
-            <label for="sobrenome">Sobrenome</label>
-            <input id="sobrenome" name="sobrenome" value="#idUsuario.Sobrenome#" required>
-            <br />
-            <label for="cpf">CPF</label>
-            <input id="cpf" value="#idUsuario.cpf#" name="cpf" maxlength="14" required>
-            <br />
-            <label for="nascimento">Data de Nascimento</label>
-            <input id="nascimento" value="#idUsuario.dataNascimento#" name="nascimento" min="1900-01-01" max="2099-12-31">
-            <br />
-            <button type="submit" class="submit">
-                Alterar
-            </button>
-        </form>
-        <cfdump var="#idUsuario#">
-    <cfelse>
-        <p>Voc&ecirc; n&atilde;o tem permiss&atilde;o para editar este usu&aacute;rio.</p>
-    </cfif>
-    
+        }) --->
+    </script>
 </cfoutput>
 
 <cfif session.tipoUsuario EQ "admin">
@@ -37,14 +54,20 @@
             <cfquery name="alterar" dataSource="cadastro-vegus">
                 UPDATE Usuarios
                 SET 
-                UsuarioID = <cfqueryparam value="#form.id#" cfsqltype="cf_sql_integer">
-                nome = <cfqueryparam value="#form.nome#" cfsqltype="cf_sql_varchar">,
-                Sobrenome = <cfqueryparam value="#form.sobrenome#" cfsqltype="cf_sql_varchar">,
-                cpf = <cfqueryparam value="#form.cpf#" cfsqltype="cf_sql_varchar">,
-                dataNascimento = <cfqueryparam value="#form.nascimento#" cfsqltype="cf_sql_varchar">
+                    nome = <cfqueryparam value="#form.nome#" cfsqltype="cf_sql_varchar">,
+                    Sobrenome = <cfqueryparam value="#form.sobrenome#" cfsqltype="cf_sql_varchar">,
+                    cpf = <cfqueryparam value="#form.cpf#" cfsqltype="cf_sql_varchar">,
+                    dataNascimento = <cfqueryparam value="#form.nascimento#" cfsqltype="cf_sql_varchar">
+                WHERE UsuarioID = <cfqueryparam value="#form.id#" cfsqltype="cf_sql_integer">
             </cfquery>
+
+            <cfset mensagemAlteracao = "Usuário alterado com sucesso!" />
+            <cflocation url="./listagem.cfm?mensagemAlteracao=#mensagemAlteracao#">
             <cfcatch>
-                #cfcatch.message#
+                <cfoutput>
+                    <p class="errorMessage">Erro ao alterar usu&aacute;rio.</p>
+
+                </cfoutput>
             </cfcatch>
         </cftry>
     </cfif>

@@ -3,21 +3,20 @@
 </cfif>
 
 <cfoutput>
-    <cfdump var="#session#"/>
     <body>
         <main class="container-cadastro">
             <cfif session.tipoUsuario EQ "admin">
-                <h2 class="title">Bem-vindo Administrdor!</h2>
+                <h2 class="title">Bem-vindo Administrador!</h2>
             </cfif>
             <cfif session.tipoUsuario EQ "regular">
                 <cfquery name="apresentacao" datasource="cadastro-vegus">
                     SELECT nome FROM Usuarios
                     WHERE nomeUsuario = <cfqueryparam value="#session.usuarioLogin#" cfsqltype="cf_sql_varchar">
                 </cfquery>
-                
+
                 <h2>Bem-vindo #apresentacao.nome#!</h2>
             </cfif>
-
+            
             <h2>Lista de Usu&aacute;rios</h2>
 
             <cfparam name="url.buscar" default="">
@@ -28,6 +27,10 @@
                 <input type="text" name="buscar" id="buscar" placeholder="Digite para pesquisar">
                 <button class="submit" type="submit">Buscar</button>
             </form>
+
+            <cfif isDefined("url.mensagemAlteracao")>
+                <h3>#url.mensagemAlteracao#</h3>
+            </cfif>
 
             <section id="listagem" class="box">
                 <div class="container-cadastro">
@@ -42,6 +45,7 @@
                                 <th><a href="?orderBy=dataNascimento&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Data de Nascimento</a></th>
                                 <th><a href="?orderBy=dataRegistro&orderDirection=<cfif structKeyExists(url, 'orderDirection') AND url.orderDirection EQ 'asc'>desc<cfelse>asc</cfif>&buscar=#urlEncodedFormat(url.buscar)#">Registrado em</a></th>
                                 <th>Editar Usu&aacute;rio</th>
+                                <th>Excluir Usu&aacute;rio</th>
                             </tr>
                         </thead>
 
@@ -57,7 +61,7 @@
                                     OR dataNascimento LIKE '%' + <cfqueryparam value="#url.buscar#" cfsqltype="cf_sql_varchar"> + '%'
                                 </cfif>
 
-                                <cfset colunasValidas = ["nomeUsuario","nome","sobrenome","cpf","dataNascimento","dataRegistro"]>
+                                <cfset colunasValidas = ["UsuarioID","nomeUsuario","nome","sobrenome","cpf","dataNascimento","dataRegistro"]>
 
                                 <cfif arrayContains(colunasValidas, url.orderBy)>
                                     <cfif len(trim(url.orderBy))>
@@ -79,12 +83,10 @@
                                     <td>#cpf#</td>
                                     <td>#dateFormat(dataNascimento, "dd/MM/yyyy")#</td>
                                     <td>#dateFormat(dataRegistro, "dd/MM/yyyy")#</td>
-                                    <td>
-                                        <cfif structKeyExists(session, "tipoUsuario") AND session.tipoUsuario EQ "admin">
-                                            <a href="editaUsuario.cfm?id=#UsuarioID#">Editar</a>
-                                            <!--- <a href="excluir.cfm?id=#UsuarioID#">Excluir</a> --->
-                                        </cfif>
-                                    </td>
+                                    <cfif structKeyExists(session, "tipoUsuario") AND session.tipoUsuario EQ "admin">
+                                        <td><a href="editaUsuario.cfm?id=#UsuarioID#">Editar</a></td>
+                                        <td><a href="deletaUsuario.cfm?id=#UsuarioID#&nome=#nome#">Excluir</a></td>
+                                    </cfif>
                                 </tr>
                             </cfloop>
                         </tbody>
