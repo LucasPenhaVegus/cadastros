@@ -30,28 +30,13 @@
             </cfif>
         </div>
     </section>
-    <script>
-        function validaCpf(params) {
-            let cpf = params.value;
-            cpf = cpf.replace(/\D/g, "");
-            params.value = cpf;
-        }
-        <!--- document.getElementById("cpf").addEventListener("input", function (numerocpf) {
-            
-            let input = numerocpf.target;
-            let value = input.value;
-
-            value = value.replace(/\D/g, "");
-            input.value = value;
-        
-        }) --->
-    </script>
+    <script src="./frontend/js/validacaoCpf.js"></script>
 </cfoutput>
 
-<cfif session.tipoUsuario EQ "admin">
+<cfif structKeyExists(session, "tipoUsuario") AND session.tipoUsuario EQ "admin">
     <cfif isDefined("form.id") AND isDefined("form.nome") AND isDefined("form.sobrenome") AND isDefined("form.cpf") AND isDefined("form.nascimento")>
         <cftry>
-            <cfquery name="alterar" dataSource="cadastro-vegus">
+            <cfquery name="alterar" datasource="cadastro-vegus">
                 UPDATE Usuarios
                 SET 
                     nome = <cfqueryparam value="#form.nome#" cfsqltype="cf_sql_varchar">,
@@ -66,9 +51,10 @@
             <cfcatch>
                 <cfoutput>
                     <p class="errorMessage">Erro ao alterar usu&aacute;rio.</p>
-
                 </cfoutput>
             </cfcatch>
         </cftry>
     </cfif>
+<cfelse>
+    <cflocation url="./login.cfm">
 </cfif>

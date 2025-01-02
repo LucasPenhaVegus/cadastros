@@ -1,7 +1,7 @@
 <cfcomponent output="false">
     <cfset this.name = "CadastroVegusApp">
     <cfset this.sessionManagement = true>
-    <cfset this.sessionTimeout = createTimeSpan(0,0,10,0)>
+    <cfset this.sessionTimeout = createTimeSpan(0,0,5,0)>
     <cfset this.datasource = "cadastro-vegus">
 
     <cfheader name="Cache-Control" value="no-cache, no-store, must-revalidate">
