@@ -19,4 +19,6 @@
             </form>
         </div>
     </section>
+
+    <script src="./frontend/js/verSenha.js"></script>
 </cfoutput>

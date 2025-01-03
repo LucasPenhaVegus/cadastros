@@ -40,10 +40,16 @@
                     <cfqueryparam value="#dateFormat(now(), "yyyy-mm-dd")#" cfsqltype="cf_sql_date">
                 );
             </cfquery>
-            <cfoutput>Usuário cadastrado com sucesso!</cfoutput>
+            <cfoutput>
+                <cfset var mensagemCriacao = "Usu&aacute;rio cadastrado com sucesso!" />
+                <cflocation url="./index.cfm?mensagemCriacao=#urlEncodedFormat(mensagemCriacao)#">
+            </cfoutput>
             <cfreturn true/>
         <cfelse>
-            <cfoutput>Usuário já cadastrado!</cfoutput>
+            <cfoutput>
+                <cfset var mensagemNegacao = "Usu&aacute;rio j&aacute; cadastrado!" />
+                <cflocation url="./index.cfm?mensagemnegacao=#urlEncodedFormat(mensagemnegacao)#">
+            </cfoutput>
             <cfreturn false/>
         </cfif>
     </cffunction>

@@ -28,7 +28,6 @@ if (formCadastro) {
             document.getElementById("errorMessage").innerHTML = "O Nome de Usuário não pode conter espaços!"
         } else {
             document.getElementById("errorMessage").innerHTML = "";
-            alert("Usuário cadastrado com sucesso!");
             formCadastro.submit();
         }
 

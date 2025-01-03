@@ -1,4 +1,4 @@
-<cfcomponent displayname="UsuarioController" output="false" hint="Valida&ccedil;ões de cadastro">
+<cfcomponent displayname="UsuarioController" output="false" hint="Valida&ccedil;&otilde;es de cadastro">
 
     <cffunction name="validarDados" access="public" returntype="boolean">
         
@@ -11,7 +11,7 @@
         <cfargument name="confirmaSenha" type="string" required="true">
         
         <cfif len(arguments.senha) LT 8 OR not reFind("[A-Z]", arguments.senha) OR not reFind("[a-z]", arguments.senha) OR not reFind("[\d]", arguments.senha)>
-            <cfoutput>A senha deve conter no mínimo 8 dígitos, uma letra maiuscula, uma letra minuscula e um número!</cfoutput>
+            <cfoutput>A senha deve conter no m&iacute;nimo 8 d&iacute;gitos, uma letra maiuscula, uma letra minuscula e um n&uacute;mero!</cfoutput>
             <cfreturn false>
 
         <cfelseif arguments.senha NEQ arguments.confirmaSenha>
@@ -19,7 +19,7 @@
             <cfreturn false>
 
         <cfelseif reFind("[\s]", arguments.usuario)>
-            <cfoutput>O Nome de Usuário não pode conter espaços!</cfoutput>
+            <cfoutput>O Nome de Usu&aacute;rio n&atilde;o pode conter espa&ccedil;os!</cfoutput>
             <cfreturn false>
             
         <cfelse>
@@ -54,7 +54,7 @@
     
     </cffunction>
 
-    <cffunction name="limparCpf" access="public" returntype="string" hint="Tira caracteres especiais e deixa apenas caracteres numéricos no CPF">
+    <cffunction name="limparCpf" access="public" returntype="string" hint="Tira caracteres especiais e deixa apenas caracteres num&eacute;ricos no CPF">
 
         <cfargument name="cpf" type="string" required="true">
 
@@ -62,7 +62,7 @@
         <cfreturn cpfLimpo>
     </cffunction>
 
-    <cffunction name="validarLogin" access="public" returntype="any" hint="Valida se o nome de usuário e senha estão corretos">
+    <cffunction name="validarLogin" access="public" returntype="any" hint="Valida se o nome de usu&aacute;rio e senha est&atilde;o corretos">
 
         <cfargument name="usuarioLogin" type="string" required="true"> 
         <cfargument name="senhaLogin" type="string" required="true">
@@ -84,11 +84,11 @@
             if (loginValido) {
                 return {
                     "sucesso" : true, 
-                    "mensagem" : "Bem-Vindo à Vegus!",
+                    "mensagem" : "Bem-Vindo &agrave; Vegus!",
                     "tipoUsuario" : "regular"
                 };
             } else {
-                return {"sucesso" : false, "mensagem" : "Usuário ou senha inválidos."};
+                return {"sucesso" : false, "mensagem" : "Usu&aacute;rio ou senha inv&aacute;lidos."};
             }
         </cfscript>
     </cffunction>

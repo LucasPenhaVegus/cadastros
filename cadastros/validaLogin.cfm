@@ -17,5 +17,12 @@
         <cflocation url="listagem.cfm">
     </cfif>
 <cfelse>
-    <cfoutput>#resultadoLogin.mensagem#</cfoutput>
+    <cfoutput>
+        <div class="container-login">
+            <h2 class="title">#resultadoLogin.mensagem#</h2>
+            <form action="login.cfm" method="get">
+                <button type="submit" class="submit">Voltar</button>
+            </form>
+        </div>
+    </cfoutput>
 </cfif>

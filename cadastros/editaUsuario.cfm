@@ -36,6 +36,12 @@
 <cfif structKeyExists(session, "tipoUsuario") AND session.tipoUsuario EQ "admin">
     <cfif isDefined("form.id") AND isDefined("form.nome") AND isDefined("form.sobrenome") AND isDefined("form.cpf") AND isDefined("form.nascimento")>
         <cftry>
+            <cfquery name="valoresAntigos" datasource="cadastro-vegus">
+                SELECT nome, sobrenome, cpf, dataNascimento 
+                FROM Usuarios 
+                WHERE UsuarioID = <cfqueryparam value="#form.id#" cfsqltype="cf_sql_integer">
+            </cfquery>
+            
             <cfquery name="alterar" datasource="cadastro-vegus">
                 UPDATE Usuarios
                 SET 
@@ -46,8 +52,24 @@
                 WHERE UsuarioID = <cfqueryparam value="#form.id#" cfsqltype="cf_sql_integer">
             </cfquery>
 
-            <cfset mensagemAlteracao = "Usuário alterado com sucesso!" />
-            <cflocation url="./listagem.cfm?mensagemAlteracao=#mensagemAlteracao#">
+            <cfset detalhes = "Alteração realizada no usuário ID #form.id#: " &
+                "Nome antigo: #valoresAntigos.nome# - Novo nome: #form.nome#; " &
+                "Sobrenome antigo: #valoresAntigos.sobrenome# - Novo sobrenome: #form.sobrenome#; " &
+                "CPF antigo: #valoresAntigos.cpf# - Novo CPF: #form.cpf#; " &
+                "Nascimento antigo: #valoresAntigos.dataNascimento# - Novo nascimento: #form.nascimento#" />
+            
+            <cfquery name="registrarLog" datasource="cadastro-vegus">
+                INSERT INTO userLogs (userAdmin, usuarioAlterado, acao, detalhes)
+                VALUES (
+                    <cfqueryparam value="#session.tipoUsuario#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#form.id#" cfsqltype="cf_sql_integer">,
+                    <cfqueryparam value="Alteração" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value="#detalhes#" cfsqltype="cf_sql_varchar">
+                )
+            </cfquery>
+
+            <cfset mensagemAlteracao = "Usu&aacute;rio alterado com sucesso!" />
+            <cflocation url="./listagem.cfm?mensagemAlteracao=#urlEncodedFormat(mensagemAlteracao)#">
             <cfcatch>
                 <cfoutput>
                     <p class="errorMessage">Erro ao alterar usu&aacute;rio.</p>

@@ -34,6 +34,14 @@
                     Cadastrar
                 </button>
             </form>
+
+            <cfif isDefined("url.mensagemCriacao")>
+                <p class="successMessage">#url.mensagemCriacao#</p>
+            </cfif>
+
+            <cfif isDefined("url.mensagemNegacao")>
+                <p class="errorMessage">#url.mensagemNegacao#</p>
+            </cfif>
             <p class="errorMessage" id="errorMessage"></p>
         </div>
     </section>
