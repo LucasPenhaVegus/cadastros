@@ -62,7 +62,8 @@
         <cfset var infoLogin = "">
         <cfquery name="infoLogin">
             SELECT senha FROM Usuarios
-            WHERE nomeUsuario = <cfqueryparam value="#arguments.usuarioLogin#" cfsqltype="cf_sql_varchar">
+            WHERE usuarioAtivo = 1
+            AND nomeUsuario = <cfqueryparam value="#arguments.usuarioLogin#" cfsqltype="cf_sql_varchar">
         </cfquery>
 
         <cfif infoLogin.recordCount EQ 1 AND infoLogin.senha EQ arguments.senhaLogin>
